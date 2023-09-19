@@ -1,12 +1,25 @@
+let lastActiveTabId = null;
+
 chrome.commands.onCommand.addListener(function (command) {
     if (command === "open_chatgpt") {
-        chrome.tabs.query({ url: "https://chat.openai.com/*" }, function (tabs) {
-            if (tabs.length > 0) {
-                // 既存のタブがあればアクティブにする
-                chrome.tabs.update(tabs[0].id, { active: true });
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            const currentTab = tabs[0];
+            if (currentTab.url.includes("https://chat.openai.com")) {
+                if (lastActiveTabId) {
+                    chrome.tabs.update(lastActiveTabId, { active: true });
+                } else {
+                    // 以前のタブIDが保存されていない場合、タブを戻る
+                    chrome.tabs.executeScript(currentTab.id, { code: 'window.history.back();' });
+                }
             } else {
-                // 新しいタブとして開く
-                chrome.tabs.create({ url: "https://chat.openai.com" });
+                lastActiveTabId = currentTab.id;
+                chrome.tabs.query({ url: "https://chat.openai.com/*" }, function (tabs) {
+                    if (tabs.length > 0) {
+                        chrome.tabs.update(tabs[0].id, { active: true });
+                    } else {
+                        chrome.tabs.create({ url: "https://chat.openai.com" });
+                    }
+                });
             }
         });
     }
