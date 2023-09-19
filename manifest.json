@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "ChatGPT Opener",
+    "version": "1.0",
+    "description": "Opens the ChatGPT tab in Chrome.",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "commands": {
+        "open_chatgpt": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y",
+                "mac": "Command+Shift+Y"
+            },
+            "description": "Open ChatGPT"
+        }
+    },
+    "permissions": [
+        "tabs"
+    ]
+}
