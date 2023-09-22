@@ -8,8 +8,12 @@ chrome.commands.onCommand.addListener(function (command) {
                 if (lastActiveTabId) {
                     chrome.tabs.update(lastActiveTabId, { active: true });
                 } else {
-                    // 以前のタブIDが保存されていない場合、タブを戻る
-                    chrome.tabs.executeScript(currentTab.id, { code: 'window.history.back();' });
+                    chrome.scripting.executeScript({
+                        target: { tabId: currentTab.id },
+                        function: () => {
+                            window.history.back();
+                        }
+                    });
                 }
             } else {
                 lastActiveTabId = currentTab.id;
@@ -18,6 +22,30 @@ chrome.commands.onCommand.addListener(function (command) {
                         chrome.tabs.update(tabs[0].id, { active: true });
                     } else {
                         chrome.tabs.create({ url: "https://chat.openai.com" });
+                    }
+                });
+                chrome.scripting.executeScript({
+                    target: { tabId: currentTab.id },
+                    function: () => {
+                        const textarea = document.getElementById('prompt-textarea');
+                        if (textarea) {
+                            textarea.focus();
+                        }
+                    }
+                });
+            }
+        });
+    } else if (command === "focus_on_textarea") {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            const currentTab = tabs[0];
+            if (currentTab.url.includes("https://chat.openai.com")) {
+                chrome.scripting.executeScript({
+                    target: { tabId: currentTab.id },
+                    function: () => {
+                        const textarea = document.getElementById('prompt-textarea');
+                        if (textarea) {
+                            textarea.focus();
+                        }
                     }
                 });
             }

@@ -18,9 +18,23 @@
                 "mac": "Command+Shift+Y"
             },
             "description": "Open ChatGPT"
+        },
+        "focus_on_textarea": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+U",
+                "mac": "Command+Shift+U"
+            },
+            "description": "Focus on ChatGPT Textarea"
         }
     },
     "permissions": [
-        "tabs"
+        "tabs",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://chat.openai.com/*",
+        "http://*/*",
+        "https://*/*"
     ]
 }
