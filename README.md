@@ -1,32 +1,35 @@
 # ChatGPT Opener
 
-![ChatGPT Opener Icon](icon.png)
+ChatGPT Openerは、特定のキーショートカットを使用して[ChatGPT](https://chat.openai.com/)のタブを瞬時に開いたり、テキストエリアにフォーカスを当てることができるChrome拡張機能です。
 
-ChatGPT Openerは、ChromeでChatGPTのページを簡単に開くための拡張機能です。
+## インストール
 
-## 機能
+以下の手順でこの拡張機能をインストールしてください。
 
-- ChatGPTのページをすぐに開く
-- ChatGPTのページが既に開いている場合は、そのタブをアクティブにする
-- ChatGPTのページが開いていて、この拡張機能を再度実行すると、以前のタブに戻る
-- `http://` または `https://` で始まるURLのみで動作（特別なURL（`chrome://`など）では動作しない）
+1. このレポジトリをクローンします。
 
-## ショートカット
-
-- Windows/Linux: `Ctrl+Shift+Y`
-- Mac: `Command+Shift+Y`
-
-## インストール方法
-
-1. GitHubからこの拡張機能のリポジトリをクローンします。
     ```bash
     git clone https://github.com/sanji0219/chappi.git
     ```
-2. Chromeのメニューから「その他のツール」 > 「拡張機能」を選択します。
-3. 画面の右上にある「デベロッパーモード」をオンにします。
-4. 「パッケージ化されていない拡張機能を読み込む」をクリックして、クローンしたリポジトリのフォルダを選択します。
-5. 拡張機能がインストールされ、Chromeの拡張機能リストに表示されます。
-6. ショートカットキーを使用して、簡単にChatGPTのページを開くことができます。
+
+2. Chromeで`chrome://extensions/`に移動し、「デベロッパーモード」を有効にします。
+
+3. 「パッケージ化されていない拡張機能を読み込む」をクリックし、先ほどクローンしたレポジトリのディレクトリを選択します。
+
+## 使い方
+
+- ChatGPTタブを開く: `Command+Shift+Y`
+- ChatGPTのテキストエリアにフォーカス: `Command+Shift+U`
+
+以上のキーショートカットは、`manifest.json`でカスタマイズすることができます。
+
+## パーミッション
+
+この拡張機能は以下のパーミッションを使用します。
+
+- `tabs`
+- `activeTab`
+- `scripting`
 
 ## ライセンス
 
