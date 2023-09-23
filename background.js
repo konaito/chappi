@@ -35,20 +35,24 @@ chrome.commands.onCommand.addListener(function (command) {
                 });
             }
         });
-    } else if (command === "focus_on_textarea") {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            const currentTab = tabs[0];
-            if (currentTab.url.includes("https://chat.openai.com")) {
-                chrome.scripting.executeScript({
-                    target: { tabId: currentTab.id },
-                    function: () => {
-                        const textarea = document.getElementById('prompt-textarea');
-                        if (textarea) {
-                            textarea.focus();
-                        }
-                    }
-                });
+  } else if (command === "focus_on_textarea") {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const currentTab = tabs[0];
+      if (currentTab.url.includes("https://chat.openai.com")) {
+        chrome.scripting.executeScript({
+          target: { tabId: currentTab.id },
+          function: () => {
+            const textarea = document.getElementById("prompt-textarea");
+            if (textarea) {
+              if (document.activeElement === textarea) {
+                textarea.blur();
+              } else {
+                textarea.focus();
+              }
             }
+          },
         });
-    }
+      }
+    });
+  }
 });
